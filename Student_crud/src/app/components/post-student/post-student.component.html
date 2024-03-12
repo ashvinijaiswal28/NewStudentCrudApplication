@@ -1,0 +1,22 @@
+
+<div class="container">
+    
+    <div class="form-container">
+        <h2 class="form-title">Post new Student</h2>
+        <form [formGroup]="postStudentForm">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required formControlName="firstName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required formControlName="lastName">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required formControlName="email">
+            </div>
+            <button type="submit" (click)="postStudent()">Post</button>
+        </form>
+    </div>
+</div>
