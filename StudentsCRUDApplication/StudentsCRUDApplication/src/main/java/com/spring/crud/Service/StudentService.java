@@ -40,7 +40,7 @@ public class StudentService {
 			existiongStudent.setEmail(student.getEmail());
 			existiongStudent.setFirstName(student.getFirstName());
 			existiongStudent.setLastName(student.getLastName());
-			return studentrepository.save(student);
+			return studentrepository.save(existiongStudent);
 		}
 		return null;
 	}
