@@ -5,7 +5,7 @@ import com.spring.crud.Entity.Department;
 import com.spring.crud.Entity.Student;
 
 public class StudentDeptCourse {
-	
+	//it is a wrapper
 	private Student student;
 	private Department department;
 	private Course course;
