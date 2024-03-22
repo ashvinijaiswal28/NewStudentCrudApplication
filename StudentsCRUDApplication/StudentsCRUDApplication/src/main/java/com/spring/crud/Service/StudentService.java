@@ -6,9 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.crud.Entity.Course;
+import com.spring.crud.Entity.Department;
 import com.spring.crud.Entity.Student;
+import com.spring.crud.Repository.CourseRepo;
+import com.spring.crud.Repository.DepartmentRepo;
 import com.spring.crud.Repository.StudentRepository;
+import com.spring.crud.Wrapper.StudentDeptCourse;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,8 +23,15 @@ public class StudentService {
 	@Autowired
 	private StudentRepository studentrepository;
 
-	public Student postStudent(Student student) {
-		return studentrepository.save(student);
+	@Transactional
+	public String postStudent(StudentDeptCourse studentWrapper) {
+		setStudentFields(studentWrapper);
+		return "{\"status\":\"Student Added Successfully.\"}";
+	}
+
+	private void setStudentFields(StudentDeptCourse studentWrapper) {
+		studentrepository.save(studentWrapper.getStudent());
+
 	}
 
 	public List<Student> getAllStudent() {
@@ -33,15 +46,38 @@ public class StudentService {
 		return studentrepository.findById(id).orElse(null);
 	}
 
-	public Student updateStudent(Long id, Student student) {
-		Optional<Student> optionalstudent = studentrepository.findById(id);
-		if (optionalstudent.isPresent()) {
-			Student existiongStudent = optionalstudent.get();
-			existiongStudent.setEmail(student.getEmail());
-			existiongStudent.setFirstName(student.getFirstName());
-			existiongStudent.setLastName(student.getLastName());
-			return studentrepository.save(existiongStudent);
+	public Student updateStudent(Long id, StudentDeptCourse student) {
+		Optional<Student> optionalStudent = studentrepository.findById(id);
+		if (optionalStudent.isPresent()) {
+			Student existingStudent = optionalStudent.get();
+			existingStudent.setEmail(student.getStudent().getEmail());
+			existingStudent.setFirstName(student.getStudent().getFirstName());
+			existingStudent.setLastName(student.getStudent().getLastName());
+			existingStudent.setContact(student.getStudent().getContact());
+			existingStudent.setAge(student.getStudent().getAge());
+
+			
+			Department existingDepartment = existingStudent.getDepartment();
+			if (existingDepartment == null) {
+				existingDepartment = new Department();
+			}
+			existingDepartment.setDepartmentName(student.getStudent().getDepartment().getDepartmentName());
+			existingStudent.setDepartment(existingDepartment);
+
+			
+			Course existingCourse = existingStudent.getCourse();
+			if (existingCourse == null) {
+				existingCourse = new Course();
+			}
+			existingCourse.setCourseName(student.getStudent().getCourse().getCourseName());
+			existingStudent.setCourse(existingCourse);
+
+			return studentrepository.save(existingStudent);
 		}
 		return null;
+	}
+
+	public List<Object[]> getStudentInfo() {
+		return studentrepository.getStudentInfo();
 	}
 }
