@@ -6,26 +6,74 @@ import { StudentService } from 'src/app/Service/student.service';
 @Component({
   selector: 'app-post-student',
   templateUrl: './post-student.component.html',
-  styleUrls: ['./post-student.component.css']
+  styleUrls: ['./post-student.component.scss']
 })
 export class PostStudentComponent {
 postStudentForm!:FormGroup ;
   constructor(private studentService: StudentService,private fb:FormBuilder,private router:Router) { }
 
- ngOnInit(){
-  this.postStudentForm=this.fb.group({
-    firstName:[null,Validators.required],
-    lastName:[null,Validators.required],
-    email:[null,[Validators.required,Validators.email]]
-  })
- }
+  ngOnInit(): void {
+    this.postStudentForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      age: ['', Validators.required],
+      contact: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      department: ['', Validators.required],
+      course: ['', Validators.required]
+    });
+  }
+
+  get firstName() {
+    return this.postStudentForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.postStudentForm.get('lastName');
+  }
+
+  get email() {
+    return this.postStudentForm.get('email');
+  }
+
+  get department() {
+    return this.postStudentForm.get('department');
+  }
+
+  get course() {
+    return this.postStudentForm.get('course');
+  }
+  get age() {
+    return this.postStudentForm.get('age');
+  }
+  get contact() {
+  
+    return this.postStudentForm.get('contact')
+
+
+  }
+
+
 
    postStudent(){
+    let json = {
+      
+      student : {
+        firstName: this.firstName?.value,
+        lastName:this.lastName?.value,
+        email:this.email?.value,
+        age:this.age?.value,
+        contact:this.contact?.value,
+        department : {
+          departmentName : this.department?.value},
+          course : { courseName : this.course?.value},
+      },
+    }
     
-   // console.log(this.postStudentForm.value);
-      this.studentService.postStudent(this.postStudentForm.value).subscribe((res) => {
+   
+      this.studentService.postStudent(json).subscribe((res) => {
         console.log(res);
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl("");
       });
   }
 }

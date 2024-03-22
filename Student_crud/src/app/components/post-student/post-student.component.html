@@ -1,22 +1,50 @@
-
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Include Font Awesome CSS -->
+    <title>Add New Student</title>
     
-    <div class="form-container">
-        <h2 class="form-title">Post new Student</h2>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title" >Add New Student</h1>
+        
         <form [formGroup]="postStudentForm">
             <div class="form-group">
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" required formControlName="firstName">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required formControlName="firstName">
             </div>
             <div class="form-group">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" required formControlName="lastName">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required formControlName="lastName">
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required formControlName="email">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" placeholder="Enter Age" required formControlName="age">
             </div>
-            <button type="submit" (click)="postStudent()">Post</button>
+            <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="tel" id="contact" name="contact" placeholder="Enter Contact" required formControlName="contact">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required formControlName="email">
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" placeholder="Enter Department" required formControlName="department">
+            </div>
+            <div class="form-group">
+                <label for="course">Course</label>
+                <input type="text" id="course" name="course" placeholder="Enter Course" required formControlName="course">
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn-submit" (click)="postStudent()">submit</button>
+                <button type="button" class="btn-cancel"routerLink="">Cancel</button>
+            </div>
         </form>
     </div>
-</div>
+</body>
+</html>

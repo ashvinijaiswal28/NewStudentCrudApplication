@@ -8,13 +8,18 @@ import { GetAllStudentsComponent } from './components/get-all-students/get-all-s
 import { UpdateStudentsComponent } from './components/update-students/update-students.component';
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ViewStudentsComponent } from './components/view-students/view-students.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PostStudentComponent,
     GetAllStudentsComponent,
-    UpdateStudentsComponent
+    UpdateStudentsComponent,
+    ViewStudentsComponent,
+    
+    
   ],
   imports: [
     BrowserModule,

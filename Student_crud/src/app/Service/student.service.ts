@@ -10,24 +10,29 @@ import { Observable } from 'rxjs';
 export class StudentService {
   public BASIC_URL = ["http://localhost:8080/"];
 
-  
+
   constructor(private http: HttpClient) { }
 
-  postStudent(student: any): Observable<any> {
-    return this.http.post(this.BASIC_URL + "api/students", student);
+  postStudent(json: any): Observable<any> {
+    return this.http.post(this.BASIC_URL + "api/create", json);
   }
 
   getAllStudents(): Observable<any> {
-    return this.http.get(this.BASIC_URL + "api/students");
+    return this.http.get(this.BASIC_URL + "api/getStudentList");
   }
-  deleteStudent(id:Number) : Observable<any>{
-    return this.http.delete(this.BASIC_URL + "api/students/"+id);
-}
-getStudentById(id:Number):Observable<any>{
-  return this.http.get(this.BASIC_URL + "api/students/"+id);
+  deleteStudent(id: Number): Observable<any> {
+    return this.http.delete(this.BASIC_URL + "api/deleteStudent/" + id);
+  }
 
-}
-updateStudent(id:Number,student:any):Observable<any>{
-  return this.http.put(this.BASIC_URL + "api/students/"+id,student);
-}
+  getStudentById(id: Number): Observable<any> {
+    return this.http.get(this.BASIC_URL + "api/getStudentByID/" + id);
+  }
+
+  updateStudent(id: Number, student: any): Observable<any> {
+    return this.http.put(this.BASIC_URL + "api/updateStudentByID/" + id, student);
+  }
+  
+  getAllStudentInformation(id: Number): Observable<any> {
+    return this.http.get(this.BASIC_URL + "api/getStudentInfo/" + id);
+  }
 }
