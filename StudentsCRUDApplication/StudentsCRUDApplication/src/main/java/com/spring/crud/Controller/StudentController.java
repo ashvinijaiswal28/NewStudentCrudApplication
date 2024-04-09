@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.crud.Entity.Student;
@@ -70,5 +71,11 @@ public class StudentController {
 	 public List<Object[]> getStudentInfo() {
 	        return studentservice.getStudentInfo();
 	    }
+	 
+	 @GetMapping("/students")
+	 public List<Student> getStudentsByFirstName(@RequestParam String first_name) {
+	     return studentservice.getStudentsByFirstName(first_name);
+	 }
+
 
 }

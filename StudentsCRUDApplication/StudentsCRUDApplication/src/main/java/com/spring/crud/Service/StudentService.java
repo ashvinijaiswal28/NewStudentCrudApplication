@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import com.spring.crud.Entity.Course;
 import com.spring.crud.Entity.Department;
 import com.spring.crud.Entity.Student;
-import com.spring.crud.Repository.CourseRepo;
-import com.spring.crud.Repository.DepartmentRepo;
 import com.spring.crud.Repository.StudentRepository;
 import com.spring.crud.Wrapper.StudentDeptCourse;
 
@@ -80,4 +78,7 @@ public class StudentService {
 	public List<Object[]> getStudentInfo() {
 		return studentrepository.getStudentInfo();
 	}
+	public List<Student> getStudentsByFirstName(String firstName) {
+        return studentrepository.findByFirstName(firstName);
+    }
 }
