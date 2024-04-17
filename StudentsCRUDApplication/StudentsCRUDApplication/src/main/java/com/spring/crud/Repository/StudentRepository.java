@@ -15,4 +15,16 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 			+ "LEFT JOIN Departments d ON stu.department_id = d.department_id "
 			+ "LEFT JOIN Courses c ON c.course_id = stu.course_id where stu.student_id=:id", nativeQuery = true)
 	public List<Object[]> getStudentInfo();
+
+	/*
+	 * @Query(value =
+	 * "SELECT stu.first_name, stu.email, stu.age, c.course_name, d.department_name "
+	 * + "FROM Students stu " +
+	 * "LEFT JOIN Departments d ON stu.department_id = d.department_id " +
+	 * "LEFT JOIN Courses c ON c.course_id = stu.course_id " +
+	 * "WHERE stu.first_name LIKE %:keyword%", nativeQuery = true) List<Object[]>
+	 * searchStudentsByFirstName(String keyword);
+	 */
+	
+	  List<Student> findByFirstName(String firstName);
 }

@@ -80,8 +80,8 @@ public class Student {
 		return contact;
 	}
 
-	public void setContact(long contact) {
-		this.contact = contact;
+	public void setContact(long string) {
+		this.contact = string;
 	}
 
 	public Long getId() {
