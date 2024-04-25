@@ -11,6 +11,9 @@ import { StudentService } from 'src/app/Service/student.service';
 export class UpdateStudentsComponent implements OnInit {
   updateStudentForm!: FormGroup;
   id: number = this.activatedRoutes.snapshot.params['id'];
+  studentData: any;
+  departments: any[] = [];
+  courses: any[] = [];
 
   constructor(
     private activatedRoutes: ActivatedRoute,
@@ -21,7 +24,8 @@ export class UpdateStudentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.getStudentById();
+    this.getDepartmentData();
+    this.getCourseData();
   }
 
   initializeForm(): void {
@@ -31,12 +35,13 @@ export class UpdateStudentsComponent implements OnInit {
       age: ['', Validators.required],
       contact: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      department: this.fb.group({
-        departmentName: [{ value: '', disabled: false }] 
-      }),
-      course: this.fb.group({
-        courseName: [{ value: '', disabled: true }] 
-      })
+      course: [this.fb.group({
+        courseName: { value: '', disabled: false }
+      })],
+      department: [this.fb.group({
+        departmentName: { value: '', disabled: false }
+      })],
+      
     });
   }
 
@@ -44,6 +49,22 @@ export class UpdateStudentsComponent implements OnInit {
     this.service.getStudentById(this.id).subscribe((res: any) => {
       console.log(res);
       this.updateStudentForm.patchValue(res);
+      this.studentData=res;
+    });
+  }
+
+  getDepartmentData(): void {
+    const fiql = "type=department";
+    this.service.getDepartmentMasterData(fiql).subscribe((data: any[]) => {
+      this.departments = data.map(item => item.name);
+    });
+  }
+
+  getCourseData(): void {
+    const fiql = "type=course";
+    this.service.getDepartmentMasterData(fiql).subscribe((data: any[]) => {
+      this.courses = data.map(item => item.name);
+      this.getStudentById();
     });
   }
 
@@ -75,24 +96,19 @@ export class UpdateStudentsComponent implements OnInit {
     return this.updateStudentForm.get('contact');
   }
 
-  
   updateStudent(): void {
     const formData = this.updateStudentForm.value;
     let json = {
-      student: {
         firstName: this.firstName?.value,
         lastName: this.lastName?.value,
         email: this.email?.value,
         age: this.age?.value,
         contact: this.contact?.value,
-        department: {
-          departmentName: this.department?.value.departmentName
-        },
-        course: {
-          courseName: this.course?.value.courseName
-        }
-      }
-    };
+      department: {
+        departmentName: this.department?.value
+      },
+      course: [{ courseName: this.course?.value }],
+    }
 
     this.service.updateStudent(this.id, json).subscribe((res) => {
       console.log(res);

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.crud.Entity.Student;
 import com.spring.crud.Service.StudentService;
-import com.spring.crud.Wrapper.StudentDeptCourse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,19 +26,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class StudentController {
+	
 	@Autowired
 	private StudentService studentservice;
 	
-	
 
 	@PostMapping("/create")
-	public String postStudent(@RequestBody StudentDeptCourse student) {
+	public String postStudent(@RequestBody Student student) {
 		return studentservice.postStudent(student);
 	}
 
 	@GetMapping("/getStudentList")
 	public List<Student> getAllStudents() {
-		return studentservice.getAllStudent();
+		return studentservice.getAllStudentDepartmentCourses();
 	}
 
 	@DeleteMapping("/deleteStudent/{id}")
@@ -48,17 +47,12 @@ public class StudentController {
 	}
 
 	@GetMapping("/getStudentByID/{id}")
-	public ResponseEntity<Student> getStudentsById(@PathVariable Long id) {
-		Student student = studentservice.getStudentById(id);
-		if (student == null) {
-			return ResponseEntity.notFound().build();
-		} else {
-			return ResponseEntity.ok(student);
-		}
+	public Student getStudentsById(@PathVariable Long id) {
+		return studentservice.getStudentDataById(id);
 	}
 
 	@PutMapping("/updateStudentByID/{id}")
-	public ResponseEntity<Student> updateStudents(@PathVariable Long id, @RequestBody StudentDeptCourse student) {
+	public ResponseEntity<Student> updateStudents(@PathVariable Long id, @RequestBody Student student) {
 		Student updatest = studentservice.updateStudent(id, student);
 		if (updatest == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -67,15 +61,13 @@ public class StudentController {
 		}
 	}
 	
-	 @GetMapping("/getStudentInfo/{id}")
-	 public List<Object[]> getStudentInfo() {
-	        return studentservice.getStudentInfo();
-	    }
+	 @GetMapping("/searchStudentsByFirstName")
+	 public List<Student> getStudentsByFirstName(@RequestParam String firstName) {
+	       return studentservice.getStudentsByFirstName(firstName);
+	     }	 
 	 
-	 @GetMapping("/students")
-	 public List<Student> getStudentsByFirstName(@RequestParam String first_name) {
-	     return studentservice.getStudentsByFirstName(first_name);
-	 }
-
-
+	 @GetMapping("/searchStudentsNDepartment")
+	 public List<Student> searchStudentsNDepartment(@RequestParam String firstName,@RequestParam String department) {
+	       return studentservice.searchStudentsNDepartment(firstName,department);
+	     }	
 }

@@ -34,12 +34,18 @@
             </div>
             <div class="form-group">
                 <label for="department">Department</label>
-                <input type="text" id="department" name="department" placeholder="Enter Department" required formControlName="department">
-            </div>
-            <div class="form-group">
+                <select id="department" name="department" formControlName="department">
+                  <option value="">Select Department</option>
+                  <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="course">Course</label>
-                <input type="text" id="course" name="course" placeholder="Enter Course" required formControlName="course">
-            </div>
+                <select id="course" name="course" formControlName="course">
+                  <option value="">Select Course</option>
+                  <option *ngFor="let course of courses" [value]="course">{{ course }}</option>
+                </select>
+              </div>
             <div class="button-group">
                 <button type="submit" class="btn-submit" (click)="postStudent()">submit</button>
                 <button type="button" class="btn-cancel"routerLink="">Cancel</button>

@@ -4,13 +4,15 @@ import { PostStudentComponent } from './components/post-student/post-student.com
 import { GetAllStudentsComponent } from './components/get-all-students/get-all-students.component';
 import { UpdateStudentsComponent } from './components/update-students/update-students.component';
 import { ViewStudentsComponent } from './components/view-students/view-students.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 const routes: Routes = [
   { path: "students", component: PostStudentComponent },
   { path: "", component: GetAllStudentsComponent },
   { path: "students/:id", component: UpdateStudentsComponent },
-  {path:  "information/:id",component:ViewStudentsComponent}
+  {path:  "information/:id",component:ViewStudentsComponent},
+  { path: 'search', component: SearchComponent }
 
 ];
 

@@ -97,3 +97,18 @@ input {
 .btn-cancel:hover {
     background-color: #ef5350; 
 }
+select {
+    width: calc(100% - 140px); /* Adjust width as needed */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    box-sizing: border-box;
+    color: #333; /* Text color */
+}
+
+select:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #66bb6a; /* Change border color on focus */
+}
+

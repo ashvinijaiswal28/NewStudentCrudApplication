@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StudentService } from 'src/app/Service/student.service';
 
 @Component({
@@ -7,18 +8,19 @@ import { StudentService } from 'src/app/Service/student.service';
   styleUrls: ['./get-all-students.component.scss']
 })
 export class GetAllStudentsComponent {
-  students: any = [];
-  constructor(private Service: StudentService) { }
+  studentsWrapper: any = [];
+  
+  constructor(private Service: StudentService,private router: Router) { }
 
   ngOnInit() {
-    this.getAllStudents();
-    
+    this.getAllStudents();  
   }
+  
   
   getAllStudents() {
     this.Service.getAllStudents().subscribe((res) => {
       console.log(res);
-      this.students = res;
+      this.studentsWrapper = res;
     });
   }
   deleteStudent(id: Number) {
@@ -27,6 +29,9 @@ export class GetAllStudentsComponent {
       console.log(res);
       this.getAllStudents();
     });
+  }
+  goToSearchPage() {
+    this.router.navigate(['/search']);
   }
 
 

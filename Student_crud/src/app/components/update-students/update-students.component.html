@@ -1,49 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Include Font Awesome CSS -->
-    <title>Update Student</title>
-</head>
-<body>
-    <div class="container">
-        <h1 class="page-title">Update Student</h1>
-        
-        <form [formGroup]="updateStudentForm">
-            <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required formControlName="firstName">
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required formControlName="lastName">
-            </div>
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" id="age" name="age" placeholder="Enter Age" required formControlName="age">
-            </div>
-            <div class="form-group">
-                <label for="contactNumber">Contact Number</label>
-                <input type="text" id="contact" name="contact" placeholder="Enter Contact" required formControlName="contact">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter Email" required formControlName="email">
-            </div>
-            <div class="form-group">
-                <label for="departmentName">Department</label>
-                <input type="text" id="departmentName" name="departmentName" [value]="updateStudentForm.get('department')?.value?.departmentName">
-            </div>
-            <div class="form-group">
-                <label for="courseName">Course</label>
-                <input type="text" id="courseName" name="courseName" [value]="updateStudentForm.get('course')?.value?.courseName">
-            </div>            
-            <div class="button-group">
-                <button type="submit" class="btn-submit" (click)="updateStudent()">Submit</button>
-                <button type="button" class="btn-cancel" routerLink="">Cancel</button>
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+<div class="container">
+    <h1 class="page-title">Update Student</h1>
+    
+    <form [formGroup]="updateStudentForm">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Enter First Name" required formControlName="firstName"
+                [value]="studentData?.firstName">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required formControlName="lastName"
+                [value]="studentData?.lastName">
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter Age" required formControlName="age"
+                [value]="studentData?.age">
+        </div>
+        <div class="form-group">
+            <label for="contactNumber">Contact Number</label>
+            <input type="text" id="contact" name="contact" placeholder="Enter Contact" required formControlName="contact"
+                [value]="studentData?.contact">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter Email" required formControlName="email"
+                [value]="studentData?.email">
+        </div>
+        <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department" name="department" formControlName="department" [value]="studentData?.department?.departmentName">
+                  <option value="">Select Department</option>
+                  <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="course">Course</label>
+                <select id="course" name="course" formControlName="course" [value]="studentData?.course[0]?.courseName">
+                  <option value="">Select Course</option>
+                  <option *ngFor="let course of courses" [value]="course">{{ course }}</option>
+                </select>
+              </div>           
+        <div class="button-group">
+            <button type="submit" class="btn-submit" (click)="updateStudent()">Submit</button>
+            <button type="button" class="btn-cancel" routerLink="">Cancel</button>
+        </div>
+    </form>
+</div>
