@@ -9,6 +9,7 @@ import { UpdateStudentsComponent } from './components/update-students/update-stu
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ViewStudentsComponent } from './components/view-students/view-students.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ViewStudentsComponent } from './components/view-students/view-students.
     GetAllStudentsComponent,
     UpdateStudentsComponent,
     ViewStudentsComponent,
+    SearchComponent,
     
     
   ],

@@ -63,12 +63,12 @@ table {
 
 th,
 td {
-    padding: 10px;
+    padding: 5px; 
     text-align: left;
     border-bottom: 1px solid #ccc; 
     border-right: 1px solid #ccc; 
     border: 1px solid #333;
-    
+    font-size: 13px; 
 }
 
 th:first-child,
@@ -82,9 +82,8 @@ th {
 }
 
 .btn-update,
-.btn-delete,
-.btn-search {
-    padding: 8px 16px; 
+.btn-delete {
+    padding: 6px 12px; 
     margin-right: 5px;
     border: none;
     border-radius: 5px;
@@ -100,16 +99,4 @@ th {
 .btn-delete {
     background-color: #f8d7da; 
     color: #721c24;
-}
-
-.btn-search {
-    background-color: #ffeeba; 
-    color: #856404;
-    margin-left: 5px; 
-}
-
-.btn-update:hover,
-.btn-delete:hover,
-.btn-search:hover {
-    filter: brightness(90%); 
 }

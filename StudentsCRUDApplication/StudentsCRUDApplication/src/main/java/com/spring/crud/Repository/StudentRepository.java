@@ -11,13 +11,13 @@ import com.spring.crud.Entity.Student;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-	@Query(value = "SELECT stu.first_name, stu.email, stu.age, c.course_name, d.department_name " + "FROM Students stu "
-			+ "LEFT JOIN Departments d ON stu.department_id = d.department_id "
-			+ "LEFT JOIN Courses c ON c.course_id = stu.course_id where stu.student_id=:id", nativeQuery = true)
-	public List<Object[]> getStudentInfo();
+	List<Student> findByFirstName(String firstName);
 
+	@Query("SELECT s FROM Student s WHERE s.firstName like %:firstName%")
+	List<Student> search(String firstName);
 
-	
-	  List<Student> findByFirstName(String firstName);
-	  
+	List<Student> findByDepartmentId(Long id);
+
+	@Query("SELECT s FROM Student s JOIN s.department d WHERE (:firstName IS NULL OR s.firstName LIKE %:firstName%) OR (:departmentName IS NULL OR d.departmentName = :departmentName)")
+	List<Student> searchStudentsNDepartment(String firstName, String departmentName);
 }

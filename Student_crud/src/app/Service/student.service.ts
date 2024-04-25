@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StudentService {
+  getFirstNames() {
+    throw new Error('Method not implemented.');
+  }
   public BASIC_URL = ["http://localhost:8080/"];
 
 
@@ -34,5 +37,21 @@ export class StudentService {
   
   getAllStudentInformation(id: Number): Observable<any> {
     return this.http.get(this.BASIC_URL + "api/getStudentInfo/" + id);
+  }
+
+  getStudentsByFirstName(fiql: any): Observable<string[]> {
+    return this.http.get<string[]>(this.BASIC_URL +"api/searchStudentsByFirstName?" + fiql);
+  }
+
+  getStudentsByDepartmentAndFirstName(fiql: any): Observable<string[]> {
+    return this.http.get<string[]>(this.BASIC_URL +"api/searchStudentsNDepartment?" + fiql);
+  }
+
+  getAllDepartments(): Observable<string[]> {
+    return this.http.get<string[]>(this.BASIC_URL +"api/allDepartments");
+  }
+
+  getDepartmentMasterData(fiql : any): Observable<string[]> {
+    return this.http.get<string[]>(this.BASIC_URL +"masterData/getDepartmentMasterData?" + fiql);
   }
 }

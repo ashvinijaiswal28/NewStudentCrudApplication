@@ -76,14 +76,7 @@ public class StudentServiceTest {
   
 
 
-    @Test
-    public void testGetStudentInfo() {
-        List<Object[]> studentInfoList = List.of(new Object[]{}, new Object[]{});
-        when(studentRepository.getStudentInfo()).thenReturn(studentInfoList);
-
-        List<Object[]> result = studentService.getStudentInfo();
-        assertEquals(2, result.size());
-    }
+  
 
     @Test
     public void testGetStudentsByFirstName() {

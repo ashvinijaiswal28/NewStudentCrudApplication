@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControlDirective, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StudentService } from 'src/app/Service/student.service';
 
@@ -12,7 +12,12 @@ export class PostStudentComponent {
 postStudentForm!:FormGroup ;
   constructor(private studentService: StudentService,private fb:FormBuilder,private router:Router) { }
 
+  departments: string[] = [];
+  courses: string[] = [];
+
   ngOnInit(): void {
+    this.getDepartmentData();
+    this.getCourseData();
     this.postStudentForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -21,6 +26,20 @@ postStudentForm!:FormGroup ;
       email: ['', [Validators.required, Validators.email]],
       department: ['', Validators.required],
       course: ['', Validators.required]
+    });
+  }
+
+  getDepartmentData(){
+    const fiql = "type=department";
+    this.studentService.getDepartmentMasterData(fiql).subscribe((data: any[]) => {
+      this.departments = data.map(item => item.name);
+    });
+  }
+
+  getCourseData(){
+    const fiql = "type=course";
+    this.studentService.getDepartmentMasterData(fiql).subscribe((data : any[]) => {
+      this.courses = data.map(item => item.name);
     });
   }
 
@@ -57,17 +76,15 @@ postStudentForm!:FormGroup ;
 
    postStudent(){
     let json = {
-      
-      student : {
         firstName: this.firstName?.value,
         lastName:this.lastName?.value,
         email:this.email?.value,
         age:this.age?.value,
         contact:this.contact?.value,
         department : {
-          departmentName : this.department?.value},
-          course : { courseName : this.course?.value},
-      },
+          departmentName : this.department?.value
+        },
+        course : [{ courseName : this.course?.value}],
     }
     
    

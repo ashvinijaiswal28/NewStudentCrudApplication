@@ -1,5 +1,7 @@
 package com.spring.crud.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,22 +9,17 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
-@NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "students")
+
+@Table(name = "student")
 public class Student {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "student_id")
@@ -36,27 +33,33 @@ public class Student {
 
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "Age")
 	private int age;
-	
+
 	@Column(name = "Contact_Number")
 	private long contact;
-	
 
-	@OneToOne(fetch  = FetchType.EAGER,cascade = CascadeType.ALL)
-	@JoinColumn(name = "department_id")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Department department;
-	
-	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@JoinColumn(name = "course_id")
-	private Course course;
-	
-	public Course getCourse() {
-		return course;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Course> course;
+
+	public Student() {
+		super();
 	}
 
-	public void setCourse(Course course) {
+	public Student(Long id, String firstName, String lastName, String email, int age, long contact,
+			Department department, List<Course> course) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.age = age;
+		this.contact = contact;
+		this.department = department;
 		this.course = course;
 	}
 
@@ -68,6 +71,10 @@ public class Student {
 		this.age = age;
 	}
 
+	public long getContact() {
+		return contact;
+	}
+
 	public Department getDepartment() {
 		return department;
 	}
@@ -76,8 +83,12 @@ public class Student {
 		this.department = department;
 	}
 
-	public long getContact() {
-		return contact;
+	public List<Course> getCourse() {
+		return course;
+	}
+
+	public void setCourse(List<Course> course) {
+		this.course = course;
 	}
 
 	public void setContact(long string) {

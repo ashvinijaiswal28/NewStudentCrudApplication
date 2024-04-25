@@ -1,0 +1,96 @@
+/* Header */
+header {
+  padding: 5px;
+  background-color: #979292;
+  color: white;
+  text-align: center;
+}
+
+/* Search Section */
+#searchSection {
+  margin: 50px auto;
+  width: 80%;
+  text-align: center;
+}
+
+#searchSection h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.searchBox {
+  margin: 0 10px;
+}
+
+.searchBox label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.searchBox input[type="text"],
+.searchBox select {
+  width: 150px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#searchButton,
+#canclButton {
+  padding: 10px 20px;
+  background-color: #d6aa59;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+#searchButton:hover,
+#canclButton:hover {
+  background-color: #e57607;
+}
+
+/* Student Details Section */
+#StudentDetails {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#StudentDetails h2 {
+  margin-bottom: 10px;
+}
+
+#studentList {
+  border: 1px solid #0e0d0d;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}

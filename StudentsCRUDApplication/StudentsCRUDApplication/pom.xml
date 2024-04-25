@@ -7,7 +7,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.3</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath /> 
 	</parent>
 	<groupId>com.spring.crud</groupId>
 	<artifactId>StudentsCRUDApplication</artifactId>
@@ -65,6 +65,11 @@
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>5.8.1</version> 
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.springboot.JPA</groupId>
+			<artifactId>Association</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

@@ -2,34 +2,29 @@ package com.spring.crud.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.crud.Entity.Course;
-import com.spring.crud.Entity.Department;
 import com.spring.crud.Entity.Student;
 import com.spring.crud.Repository.StudentRepository;
-import com.spring.crud.Wrapper.StudentDeptCourse;
 
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class StudentService {
 	@Autowired
 	private StudentRepository studentrepository;
-
+	
 	@Transactional
-	public String postStudent(StudentDeptCourse studentWrapper) {
-		setStudentFields(studentWrapper);
+	public String postStudent(Student studen) {
+		setStudentFields(studen);
 		return "{\"status\":\"Student Added Successfully.\"}";
 	}
 
-	private void setStudentFields(StudentDeptCourse studentWrapper) {
-		studentrepository.save(studentWrapper.getStudent());
-
+	private void setStudentFields(Student student) {
+		studentrepository.save(student);
 	}
 
 	public List<Student> getAllStudent() {
@@ -44,41 +39,47 @@ public class StudentService {
 		return studentrepository.findById(id).orElse(null);
 	}
 
-	public Student updateStudent(Long id, StudentDeptCourse student) {
+	public Student updateStudent(Long id, Student student) {
 		Optional<Student> optionalStudent = studentrepository.findById(id);
 		if (optionalStudent.isPresent()) {
 			Student existingStudent = optionalStudent.get();
-			existingStudent.setEmail(student.getStudent().getEmail());
-			existingStudent.setFirstName(student.getStudent().getFirstName());
-			existingStudent.setLastName(student.getStudent().getLastName());
-			existingStudent.setContact(student.getStudent().getContact());
-			existingStudent.setAge(student.getStudent().getAge());
-
-			
-			Department existingDepartment = existingStudent.getDepartment();
-			if (existingDepartment == null) {
-				existingDepartment = new Department();
-			}
-			existingDepartment.setDepartmentName(student.getStudent().getDepartment().getDepartmentName());
-			existingStudent.setDepartment(existingDepartment);
-
-			
-			Course existingCourse = existingStudent.getCourse();
-			if (existingCourse == null) {
-				existingCourse = new Course();
-			}
-			existingCourse.setCourseName(student.getStudent().getCourse().getCourseName());
-			existingStudent.setCourse(existingCourse);
-
+			existingStudent.setEmail(student.getEmail());
+			existingStudent.setFirstName(student.getFirstName());
+			existingStudent.setLastName(student.getLastName());
+			existingStudent.setContact(student.getContact());
+			existingStudent.setAge(student.getAge());
+			existingStudent.setDepartment(student.getDepartment());
+			existingStudent.setCourse(student.getCourse());
 			return studentrepository.save(existingStudent);
 		}
 		return null;
 	}
 
-	public List<Object[]> getStudentInfo() {
-		return studentrepository.getStudentInfo();
+	  public List<String> getAllFirstNames() {
+	        List<Student> students = studentrepository.findAll();
+	        List<String> firstNames = students.stream()
+	                                        .map(Student::getFirstName)
+	                                        .collect(Collectors.toList());
+	        return firstNames;
+	    }
+
+	public List<Student> getAllStudentDepartmentCourses() {
+		return studentrepository.findAll();
 	}
+
+	public Student getStudentDataById(Long id) {
+		Student student = studentrepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+		return student;
+	}
+	 	  
 	public List<Student> getStudentsByFirstName(String firstName) {
-        return studentrepository.findByFirstName(firstName);
-    }
+		return  studentrepository.search(firstName);
+		}
+
+	public List<Student> searchStudentsNDepartment(String firstName, String department) {
+		return  studentrepository.searchStudentsNDepartment(firstName,department);
+	}
+
+	
 }

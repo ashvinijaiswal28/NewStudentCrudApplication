@@ -33,13 +33,7 @@ public class StudentRepositoryTest {
         assertEquals(2, result.size());
     }
 
-    @Test
-    public void testGetStudentInfo() {
-        List<Object[]> studentInfoList = List.of(new Object[]{}, new Object[]{});
-        when(studentRepository.getStudentInfo()).thenReturn(studentInfoList);
-
-        List<Object[]> result = studentRepository.getStudentInfo();
-        assertEquals(2, result.size());
-    }
+   
+  
 }
 
