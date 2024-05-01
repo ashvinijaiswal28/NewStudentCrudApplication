@@ -53,17 +53,19 @@ export class UpdateStudentsComponent implements OnInit {
     });
   }
 
-  getDepartmentData(): void {
-    const fiql = "type=department";
-    this.service.getDepartmentMasterData(fiql).subscribe((data: any[]) => {
-      this.departments = data.map(item => item.name);
+  getDepartmentData(){
+    // const fiql = "type=department";
+    this.service.getDepartmentMasterData().subscribe((data: any[]) => {
+      const departmentSet = new Set(data.map(item => item.departmentName));
+      this.departments = Array.from(departmentSet);
     });
   }
 
-  getCourseData(): void {
-    const fiql = "type=course";
-    this.service.getDepartmentMasterData(fiql).subscribe((data: any[]) => {
-      this.courses = data.map(item => item.name);
+  getCourseData(){
+    // const fiql = "type=course";
+    this.service.getCoursetMasterData().subscribe((data : any[]) => {
+      const courseSet = new Set(data.map(item => item.courseName));
+      this.courses = Array.from(courseSet);
       this.getStudentById();
     });
   }

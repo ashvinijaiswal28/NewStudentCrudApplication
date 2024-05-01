@@ -51,7 +51,11 @@ export class StudentService {
     return this.http.get<string[]>(this.BASIC_URL +"api/allDepartments");
   }
 
-  getDepartmentMasterData(fiql : any): Observable<string[]> {
-    return this.http.get<string[]>(this.BASIC_URL +"masterData/getDepartmentMasterData?" + fiql);
+  getDepartmentMasterData(): Observable<string[]> {
+    return this.http.get<string[]>(this.BASIC_URL +"api/getDepartmentMasterData");
+  }
+
+  getCoursetMasterData(): Observable<string[]> {
+    return this.http.get<string[]>(this.BASIC_URL +"api/getCoursetMasterData");
   }
 }

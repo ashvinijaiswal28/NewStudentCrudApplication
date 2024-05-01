@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.crud.Entity.Course;
+import com.spring.crud.Entity.Department;
 import com.spring.crud.Entity.Student;
+import com.spring.crud.Repository.CourseRepository;
+import com.spring.crud.Repository.DepartmentRepository;
 import com.spring.crud.Service.StudentService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +34,11 @@ public class StudentController {
 	@Autowired
 	private StudentService studentservice;
 	
+	@Autowired
+	private DepartmentRepository  departmentRepository;
+	
+	@Autowired
+	private CourseRepository  courseRepository;
 
 	@PostMapping("/create")
 	public String postStudent(@RequestBody Student student) {
@@ -70,4 +79,15 @@ public class StudentController {
 	 public List<Student> searchStudentsNDepartment(@RequestParam String firstName,@RequestParam String department) {
 	       return studentservice.searchStudentsNDepartment(firstName,department);
 	     }	
+	 
+
+	 @GetMapping("/getDepartmentMasterData")
+		   public List<Department> getDepartmentMasterData() {
+		        return departmentRepository.getDepartmentMasterData();
+		    }
+	 
+	 @GetMapping("/getCoursetMasterData")
+	   public List<Course> getCoursetMasterData() {
+	        return courseRepository.getCoursetMasterData();
+	    }
 }

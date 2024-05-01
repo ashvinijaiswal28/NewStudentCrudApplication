@@ -31,6 +31,7 @@ public class StudentService {
 		return studentrepository.findAll();
 	}
 
+	@Transactional
 	public void deleteStudent(Long id) {
 		studentrepository.deleteById(id);
 	}
@@ -39,6 +40,7 @@ public class StudentService {
 		return studentrepository.findById(id).orElse(null);
 	}
 
+	@Transactional
 	public Student updateStudent(Long id, Student student) {
 		Optional<Student> optionalStudent = studentrepository.findById(id);
 		if (optionalStudent.isPresent()) {

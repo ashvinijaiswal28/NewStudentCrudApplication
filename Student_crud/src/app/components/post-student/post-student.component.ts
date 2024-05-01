@@ -9,8 +9,8 @@ import { StudentService } from 'src/app/Service/student.service';
   styleUrls: ['./post-student.component.scss']
 })
 export class PostStudentComponent {
-postStudentForm!:FormGroup ;
-  constructor(private studentService: StudentService,private fb:FormBuilder,private router:Router) { }
+  postStudentForm!: FormGroup;
+  constructor(private studentService: StudentService, private fb: FormBuilder, private router: Router) { }
 
   departments: string[] = [];
   courses: string[] = [];
@@ -29,36 +29,34 @@ postStudentForm!:FormGroup ;
     });
   }
 
-  getDepartmentData(){
-    const fiql = "type=department";
-    this.studentService.getDepartmentMasterData(fiql).subscribe((data: any[]) => {
-      this.departments = data.map(item => item.name);
+  getDepartmentData() {
+    // const fiql = "type=department";
+    this.studentService.getDepartmentMasterData().subscribe((data: any[]) => {
+      const departmentSet = new Set(data.map(item => item.departmentName));
+      this.departments = Array.from(departmentSet);
     });
   }
 
-  getCourseData(){
-    const fiql = "type=course";
-    this.studentService.getDepartmentMasterData(fiql).subscribe((data : any[]) => {
-      this.courses = data.map(item => item.name);
+  getCourseData() {
+    // const fiql = "type=course";
+    this.studentService.getCoursetMasterData().subscribe((data: any[]) => {
+      const courseSet = new Set(data.map(item => item.courseName));
+      this.courses = Array.from(courseSet);
     });
   }
-
+  
   get firstName() {
     return this.postStudentForm.get('firstName');
   }
-
   get lastName() {
     return this.postStudentForm.get('lastName');
   }
-
   get email() {
     return this.postStudentForm.get('email');
   }
-
   get department() {
     return this.postStudentForm.get('department');
   }
-
   get course() {
     return this.postStudentForm.get('course');
   }
@@ -66,32 +64,27 @@ postStudentForm!:FormGroup ;
     return this.postStudentForm.get('age');
   }
   get contact() {
-  
     return this.postStudentForm.get('contact')
-
-
   }
 
-
-
-   postStudent(){
+  postStudent() {
     let json = {
-        firstName: this.firstName?.value,
-        lastName:this.lastName?.value,
-        email:this.email?.value,
-        age:this.age?.value,
-        contact:this.contact?.value,
-        department : {
-          departmentName : this.department?.value
-        },
-        course : [{ courseName : this.course?.value}],
+      firstName: this.firstName?.value,
+      lastName: this.lastName?.value,
+      email: this.email?.value,
+      age: this.age?.value,
+      contact: this.contact?.value,
+      department: {
+        departmentName: this.department?.value
+      },
+      course: [{ courseName: this.course?.value }],
     }
-    
-   
-      this.studentService.postStudent(json).subscribe((res) => {
-        console.log(res);
-        this.router.navigateByUrl("");
-      });
+
+
+    this.studentService.postStudent(json).subscribe((res) => {
+      console.log(res);
+      this.router.navigateByUrl("");
+    });
   }
 }
 

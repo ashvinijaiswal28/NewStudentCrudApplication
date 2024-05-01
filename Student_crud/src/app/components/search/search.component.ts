@@ -22,19 +22,12 @@ export class SearchComponent implements OnInit {
   }
 
   getDepartmentData(){
-    const fiql = "type=department";
-    this.studentService.getDepartmentMasterData(fiql).subscribe((data: any[]) => {
-      this.departments = data.map(item => item.name);
+    // const fiql = "type=department";
+    this.studentService.getDepartmentMasterData().subscribe((data: any[]) => {
+      const departmentSet = new Set(data.map(item => item.departmentName));
+      this.departments = Array.from(departmentSet);
     });
   }
-
-  // searchStudents(): void {
-  //   const fiql = `firstName=${this.selectedFirstName}`;
-  //   this.studentService.getStudentsByFirstName(fiql)
-  //     .subscribe((students: any[]) => {
-  //       this.students = students;
-  //     });
-  // }
 
   searchStudents(): void {
     let firstNameParam = this.selectedFirstName ? this.selectedFirstName : null;
